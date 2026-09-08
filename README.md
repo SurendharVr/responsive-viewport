@@ -17,7 +17,9 @@ Copy the folder into your skills directory:
 git clone https://github.com/SurendharVr/responsive-viewport.git ~/.claude/skills/responsive-viewport
 ```
 
-Or drop the packaged `.skill` file into Claude and use **Save skill**.
+Or download the packaged `.skill` from the
+[latest release](https://github.com/SurendharVr/responsive-viewport/releases/latest),
+drop it into Claude, and use **Save skill**.
 
 ## What's inside
 
