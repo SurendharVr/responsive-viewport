@@ -87,6 +87,69 @@ python scripts/check_responsive.py ./src
 Run this before asking for changes — it gives file:line evidence instead of guesses, so the
 conversation starts from facts. See [The auditor](#the-auditor) for the full check list.
 
+## How to prompt it
+
+The prompts above show that it triggers on its own. These are what to actually ask, grouped by
+what you're trying to do. Copy one and adapt the specifics.
+
+**Fixing something that's broken**
+
+- `there's a horizontal scrollbar on /pricing at 390px — find what's pushing it wide and fix it`
+- `the hero is 100vh and the CTA is below the fold on iOS Safari when the page first loads`
+- `our fixed bottom nav sits under the home indicator on iPhone — fix it so the bar's background still fills the inset`
+- `this data table blows out the layout on a 360px Android. what's the right mobile treatment, not just overflow-x?`
+- `the h1 wraps badly between 400 and 500px. make it fluid instead of adding a fourth media query`
+
+**Building something new**
+
+- `build the pricing page shell — it has to hold from 360px to 3440px without looking broken at either end`
+- `set up the breakpoint and container system for this project: mobile-first, rem, six tiers max`
+- `this dashboard is for people on 34" ultrawides. use the width rather than centring a narrow column in it`
+
+**Auditing an existing codebase**
+
+- `run the responsive audit on ./src and give me the findings in severity order with file:line`
+- `review this branch for responsive regressions before I merge it`
+- `which of our breakpoints are accidental? we have nine and I suspect four are load-bearing`
+- `we set viewport-fit=cover but I don't think anything uses the insets — check`
+
+**Deciding and specifying**
+
+- `what widths should QA actually test? here's our analytics export`
+- `we support ultrawides. cap and centre, or add a column? argue both, then recommend one`
+- `write the breakpoint standard for the team as markdown I can paste into Notion`
+- `is removing maximum-scale going to bring back the iOS zoom-on-input-focus problem?`
+
+**Verifying**
+
+- `check this page at 320, 375, 768, 1024, 1440 and 1920 and report any horizontal overflow`
+- `does this still work at 200% browser zoom, and at a 20px root font size?`
+- `test it at 852×393 — landscape phone is the tightest vertical case we have`
+
+### Prompts that make it sharper
+
+- **Give a width and a device.** "broken on mobile" gets a generic answer; "clipped at 390px on
+  iPhone 15" gets the actual cause.
+- **Describe the symptom, not your diagnosis.** "sideways scrollbar on /pricing" beats "I think we
+  need overflow hidden" — the second one asks for a fix that is usually wrong.
+- **Say the range you must support.** 320→1920 and 360→3440 produce genuinely different systems.
+- **Point at files.** It will read them; guessing wastes a turn.
+- **Ask for the audit first** on an existing codebase, so the conversation starts from file:line
+  evidence rather than opinion.
+
+### What to send elsewhere
+
+This skill owns the numbers, not the aesthetics. These will not get a useful answer here, and the
+skill is written to decline them:
+
+| Ask | Belongs to |
+|---|---|
+| "make this hover state feel less cheap" | a visual-design skill |
+| "pick a font pairing for a fintech dashboard" | `ui-ux-pro-max` |
+| "install Tailwind and shadcn in this project" | `ui-styling` |
+| "write a print stylesheet for the invoice page" | plain `@media print` work — no viewport judgement in it |
+| "our Outlook email template breaks" | email-client HTML, a different discipline entirely |
+
 ## What's inside
 
 | Path | What it is |
