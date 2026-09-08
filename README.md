@@ -63,6 +63,17 @@ Two honest caveats:
 An earlier round with a weaker assertion set scored 100% for both configurations — that null
 result is what prompted the harder assertions, and it is kept in the record rather than dropped.
 
+## Tests
+
+```bash
+python tests/test_auditor.py
+```
+
+Standard library only, no pytest. Asserts every auditor check actually fires on a fixture that
+violates it, that a clean fixture stays clean (including the `100vh` → `100dvh` fallback pattern,
+which must not be flagged), that `--strict` exit codes are right, that `--json` is well formed,
+and that the shipped `assets/responsive-base.css` passes its own auditor.
+
 ## Related skills
 
 Pairs with, and does not replace, `hallmark` (visual craft), `ui-styling` (Tailwind/shadcn
