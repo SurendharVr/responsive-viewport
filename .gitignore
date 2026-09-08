@@ -1,0 +1,7 @@
+# packaged build artifact, produced by skill-creator's package_skill.py
+*.skill
+
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db

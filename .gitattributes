@@ -1,0 +1,5 @@
+# Store everything with LF in the repo; check out native on Windows.
+# The auditor is executable on POSIX - CRLF would break its shebang.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
