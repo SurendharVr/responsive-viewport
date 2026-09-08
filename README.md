@@ -2,14 +2,21 @@
 
 [![CI](https://github.com/SurendharVr/responsive-viewport/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SurendharVr/responsive-viewport/actions/workflows/ci.yml)
 
-An [Agent Skill](https://docs.claude.com/en/docs/claude-code/skills) that supplies the
-*dimensional* layer of responsive web work: the viewport meta tag, safe-area insets, a breakpoint
-and container-width system, real device widths in CSS pixels, fluid type, touch targets, and
-CLS-safe images.
+A **Claude Code [Agent Skill](https://docs.claude.com/en/docs/claude-code/skills) for responsive
+web design**. It gives Claude the numbers and the rules
+for making a web app render correctly from a 320px phone to a 3440px ultra-wide monitor: CSS
+breakpoints, container max-widths, media queries and container queries, the `<meta name="viewport">`
+tag, safe-area insets for the iPhone notch and home indicator, `dvh`/`svh` viewport units, fluid
+typography with `clamp()`, 44px touch targets, and images that do not shift the layout (CLS).
 
-It is deliberately narrow. It does not have opinions about how a page should look — it has
-opinions about the numbers, and about the handful of mistakes that break layouts regardless of
-taste.
+Reach for it when a page has a **horizontal scrollbar on mobile**, a hero **cut off on iOS
+Safari**, a fixed bar **under the home indicator**, a component that looks wrong in one container
+but fine in another, a layout **stranded in the middle of an ultra-wide monitor**, or a team that
+cannot agree on which breakpoints to use.
+
+It is deliberately narrow. It has no opinions about how a page should look — only about the
+numbers, and about the handful of mistakes that break layouts regardless of taste. Pair it with a
+visual-design skill and let each own its half.
 
 ## Install
 
