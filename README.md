@@ -1,5 +1,7 @@
 # responsive-viewport
 
+[![CI](https://github.com/SurendharVr/responsive-viewport/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SurendharVr/responsive-viewport/actions/workflows/ci.yml)
+
 An [Agent Skill](https://docs.claude.com/en/docs/claude-code/skills) that supplies the
 *dimensional* layer of responsive web work: the viewport meta tag, safe-area insets, a breakpoint
 and container-width system, real device widths in CSS pixels, fluid type, touch targets, and
