@@ -2,7 +2,7 @@
 name: responsive-viewport
 description: "Production spec for responsive layout across mobile, tablet, laptop, desktop and ultra-wide: the viewport meta tag, safe-area insets for notches and home indicators, a breakpoint + container-width system, real device dimensions in CSS pixels, fluid type with clamp(), touch-target sizing, and CLS-safe images. Use this whenever the work touches breakpoints, media queries, container or max-width decisions, the meta name=viewport tag, viewport units (vh/dvh/svh/vw), mobile notches or safe areas, 'make this responsive', 'it breaks on mobile', 'looks wrong on iPad', horizontal scroll or overflow bugs, components that look wrong in one container but fine in another (container queries), device testing widths, tap target size, layout shift, or picking font sizes that scale, even when the user does not say the word 'responsive'."
 metadata:
-  version: "1.2.0"
+  version: "1.1.1"
 ---
 
 # Responsive Viewport Spec
