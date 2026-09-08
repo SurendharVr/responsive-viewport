@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  auditor:
+    name: auditor (py${{ matrix.python-version }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The auditor claims Python 3.8+, so 3.8 is tested rather than assumed.
+          # 3.8 needs the 22.04 runner; setup-python does not build it for 24.04.
+          - python-version: "3.8"
+            runner: ubuntu-22.04
+          - python-version: "3.12"
+            runner: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Auditor test suite
+        run: python tests/test_auditor.py
+
+      - name: Shipped stylesheet passes its own auditor
+        run: python scripts/check_responsive.py assets --strict
+
+      - name: SKILL.md frontmatter is intact
+        run: |
+          python - <<'PY'
+          import re, sys
+          text = open("SKILL.md", encoding="utf-8").read()
+          match = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+          if not match:
+              sys.exit("SKILL.md has no YAML frontmatter")
+          front = match.group(1)
+          for key in ("name:", "description:"):
+              if key not in front:
+                  sys.exit("SKILL.md frontmatter is missing %s" % key)
+          # The packager rejects angle brackets in the description; catch that
+          # here rather than at package time.
+          desc = re.search(r'description:\s*"(.*?)"\s*$', front, re.S | re.M)
+          if desc and ("<" in desc.group(1) or ">" in desc.group(1)):
+              sys.exit("description contains angle brackets; the packager will reject it")
+          print("frontmatter ok")
+          PY
+
