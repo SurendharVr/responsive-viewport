@@ -212,6 +212,12 @@ Pairs with, and does not replace, `hallmark` (visual craft), `ui-styling` (Tailw
 implementation) and `ui-ux-pro-max` (style, palette, font pairing). Use this one for the numbers
 and let those own the aesthetics.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md). Versions are semantic against the skill's *behaviour* — the
+guidance in `SKILL.md`, the references, the stylesheet and the auditor's output — so a
+docs-only change is a patch.
+
 ## Licence
 
 MIT.
