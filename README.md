@@ -30,6 +30,63 @@ Or download the packaged `.skill` from the
 [latest release](https://github.com/SurendharVr/responsive-viewport/releases/latest),
 drop it into Claude, and use **Save skill**.
 
+## Usage
+
+You don't invoke it by name. Once installed it loads on its own when a task touches responsive
+layout — including when the word "responsive" never appears. These are verbatim prompts from its
+trigger benchmark, all of which pull it in:
+
+> our pricing table has a horizontal scrollbar on my galaxy s23 but only on the /pricing page,
+> everything else is fine
+
+> the checkout footer with the pay button sits underneath the home indicator on iphone and people
+> keep mis-tapping it
+
+> h1 on our landing page is a hardcoded 72px and it wraps like garbage on a phone. i'd rather it
+> scaled smoothly than me adding a fourth media query
+
+> QA currently tests 'mobile, tablet and desktop' which means nothing and they keep missing stuff
+
+### What it actually changes
+
+Given a page reported as "sideways scrollbar, hero cut off on load, bottom nav under the home
+indicator", it works in dependency order — document contract, then container and breakpoints, then
+fluid type, then verification at real widths. The diff it produced for exactly that report:
+
+```css
+/* before */
+.hero       { height: 100vh; width: 100vw; }
+.bottom-bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 0; }
+
+/* after */
+.hero {
+  min-block-size: 100vh;                               /* fallback for old engines */
+  min-block-size: calc(100dvh - var(--bottom-bar-h));  /* dvh tracks mobile chrome */
+}
+.bottom-bar {
+  position: fixed;
+  inset-inline: 0;                                     /* logical: RTL for free */
+  inset-block-end: 0;
+  /* pad past the home indicator rather than moving the bar, so its
+     background still fills the inset */
+  padding-block: var(--space-s) calc(var(--space-s) + var(--safe-bottom));
+}
+```
+
+It also removed `user-scalable=no` from the viewport tag (a WCAG 1.4.4 failure), added
+`viewport-fit=cover` so the safe-area insets resolve at all, and replaced the five desktop-first
+`max-width` queries (1200/900/700/600/480 px) with four mobile-first `rem` ones — the feature grid
+needed no breakpoint of its own once it used `repeat(auto-fit, minmax(min(18rem, 100%), 1fr))`.
+
+### Auditing an existing codebase
+
+```bash
+python scripts/check_responsive.py ./src
+```
+
+Run this before asking for changes — it gives file:line evidence instead of guesses, so the
+conversation starts from facts. See [The auditor](#the-auditor) for the full check list.
+
 ## What's inside
 
 | Path | What it is |
