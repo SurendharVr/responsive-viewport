@@ -14,7 +14,7 @@ taste.
 Copy the folder into your skills directory:
 
 ```bash
-git clone https://github.com/<owner>/responsive-viewport.git ~/.claude/skills/responsive-viewport
+git clone https://github.com/SurendharVr/responsive-viewport.git ~/.claude/skills/responsive-viewport
 ```
 
 Or drop the packaged `.skill` file into Claude and use **Save skill**.
